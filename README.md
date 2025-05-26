@@ -1,4 +1,5 @@
 # Django, MTV기반, 사진목록 보기 toy서비스
+## Html , Django , Sqlite3 
 ## 기능
 * 사진 목록
 * 사진 추가
