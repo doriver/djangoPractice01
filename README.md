@@ -1,4 +1,4 @@
-# Django, MTV기반, 사진목록 보기 toy서비스
+# Django MTV를 이용한 사진목록 보기
 ## Html , Django , Sqlite3 
 ## 기능
 * 사진 목록
