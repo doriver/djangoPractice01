@@ -33,3 +33,19 @@ class TodoAPIView(APIView):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+# 완료목록 조회용
+class DoneTodosAPIView(APIView):
+    def get(self, request):
+        dones = Todo.objects.filter(complete=True)
+        serializer = TodoSimpleSerializer(dones, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+# 완료 처리용
+class DoneTodoAPIView(APIView):
+    def get(self, request, pk):
+        done = get_object_or_404(Todo, id=pk)
+        done.complete = True
+        done.save()
+        serializer = TodoDetailSerializer(done)
+        return Response(status=status.HTTP_200_OK)
