@@ -7,7 +7,7 @@ from rest_framework.generics import get_object_or_404
 from .models import Book
 from .serializers import BookSerializer
 
-from rest_framework import generics, mixins
+from rest_framework import generics, mixins, viewsets
 
 # 뷰를 작성할 때 함수를 사용했는지, 클래스를 사용했는지의 차이
 # FBV(Function Based View, 함수 기반 뷰) , CBV(Class Based View, 클래스 기반 뷰)
@@ -93,3 +93,7 @@ class BookAPIGenerics(generics.RetrieveUpdateDestroyAPIView):
     queryset = Book.objects.all()
     serializer_class = BookSerializer
     lookup_field = 'bid'
+
+class BooksViewSet(viewsets.ModelViewSet):
+    queryset = Book.objects.all()
+    serializer_class = BookSerializer
