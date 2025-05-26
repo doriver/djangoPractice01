@@ -32,3 +32,10 @@ def booksAPI(request):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['GET'])
+def bookAPI(request, bid):
+    book = get_object_or_404(Book, bid=bid)
+    serializer = BookSerializer(book)
+    return Response(serializer.data, status=status.HTTP_200_OK)
+
