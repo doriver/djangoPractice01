@@ -7,6 +7,8 @@ from rest_framework.generics import get_object_or_404
 from .models import Book
 from .serializers import BookSerializer
 
+from rest_framework import generics, mixins
+
 # 뷰를 작성할 때 함수를 사용했는지, 클래스를 사용했는지의 차이
 # FBV(Function Based View, 함수 기반 뷰) , CBV(Class Based View, 클래스 기반 뷰)
 
@@ -58,3 +60,26 @@ class BookAPI(APIView):
         serializer = BookSerializer(book)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
+class BooksAPIMixins(mixins.ListModelMixin, mixins.CreateModelMixin, generics.GenericAPIView):
+    queryset = Book.objects.all()
+    serializer_class = BookSerializer
+
+    def get(self, request, *args, **kwargs):            # GET 메소드 처리 함수(전체 목록)
+        return self.list(request, *args, **kwargs)      # mixins.ListModeMixin과 연결
+    
+    def post(self, request, *args, **kwargs):           # POST 메소드 처리 함수(1권 등록)
+        return self.create(request, *args, **kwargs)    # mixins.CreateModeMixin과 연결
+    
+class BookAPIMixins(mixins.RetrieveModelMixin, mixins.UpdateModelMixin, mixins.DestroyModelMixin, generics.GenericAPIView):
+    queryset = Book.objects.all()
+    serializer_class = BookSerializer
+    lookup_field = 'bid'
+
+    def get(self, request, *args, **kwargs):            # GET 메소드 처리 함수(1권 가져오기)
+        return self.retrieve(request, *args, **kwargs)  # mixins.RetrieveModelMixin과 연결
+    
+    def put(self, request, *args, **kwargs):            # PUT 메소드 처리 함수(1권 수정)
+        return self.update(request, *args, **kwargs)    # mixins.UpdateModelMixin과 연결
+    
+    def delete(self, request, *args, **kwargs):         # DELETE 메소드 처리 함수(1권 삭제)
+        return self.destroy(request, *args, **kwargs)   # mixins.DestroyModelMixin과 연결
