@@ -2,3 +2,9 @@
 * Django
 * Flask
 * GPT API
+
+<br>
+
+* toDo
+  *  drf01, drf02 옮기기
+  *  flask + gpt + dalle 추가하기
