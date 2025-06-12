@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>GPT + DALL·E 생성기</title>
+    <style>
+        body { font-family: sans-serif; margin: 40px; }
+        input[type="text"] { width: 400px; padding: 10px; }
+        button { padding: 10px 20px; }
+        img { max-width: 512px; margin-top: 5px; }
+        textarea { width: 500px; height: 50px; margin-top: 5px; }
+    </style>
+</head>
+<body>
+    <h1>GPT + DALL·E 생성기</h1>
+    <form method="POST">
+        <label for="prompt">프롬프트:</label><br>
+        <input type="text" id="prompt" name="prompt" value="{{ prompt or '' }}" required>
+        <button type="submit">생성</button>
+    </form>
+    {% if image_url %}
+        <h2>생성된 이미지:</h2>
+        <img src="{{ image_url }}" alt="Generated Image">
+    {% endif %}
+    {% if gpt_text %}
+        <h2>GPT 설명 결과:</h2>
+        <textarea readonly>{{ gpt_text }}</textarea>
+    {% endif %}
+    
+</body>
+</html>
